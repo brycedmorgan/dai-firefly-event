@@ -3,32 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Firefly Family Festival — May 2026. Free admission, 16 bounce houses, food trucks, Touch-a-Truck, and more! Get kids off screens and into the fun.">
-    
-    <title>Firefly Family Festival | May 2026</title>
+    <meta name="description" content="Firefly Fam Fest — A Festival for Families! May 9, 2026 • 10 AM–6 PM. Free admission, bounce houses, touch-a-truck, train rides, and more!">
+    <title>Firefly Fam Fest | A Festival for Families | May 9, 2026</title>
     
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            --color-primary: #1a1a2e;
-            --color-secondary: #16213e;
-            --color-accent-yellow: #ffc93c;
-            --color-accent-orange: #ff6b35;
-            --color-accent-pink: #ff4f8b;
-            --color-accent-blue: #00d9ff;
-            --color-accent-green: #7dce13;
+            --color-primary: #1a3a5c;
+            --color-secondary: #0d2840;
+            --color-accent: #4a9fd4;
+            --color-accent-light: #7bc4f0;
+            --color-yellow: #ffc93c;
+            --color-orange: #ff8c42;
+            --color-green: #5cb85c;
             --color-white: #ffffff;
-            --color-gray-100: #f8f9fa;
-            --color-gray-600: #6c757d;
-            --font-display: 'Fredoka', sans-serif;
-            --font-body: 'Nunito', sans-serif;
+            --color-cream: #fef9f3;
+            --color-gray-100: #f5f7fa;
+            --color-gray-600: #5a6978;
+            --font-display: 'Fraunces', serif;
+            --font-body: 'Inter', sans-serif;
         }
         
         * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
         
         body {
             font-family: var(--font-body);
@@ -37,63 +38,124 @@
             line-height: 1.6;
         }
         
-        /* Gradient background for fun sections */
-        .gradient-bg {
-            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+        /* Confetti Animation */
+        @keyframes confetti-fall {
+            0% { transform: translateY(-100vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(-5deg); }
+            50% { transform: translateY(-15px) rotate(5deg); }
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        .confetti {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1000;
+            overflow: hidden;
+        }
+        
+        .confetti-piece {
+            position: absolute;
+            width: 10px;
+            height: 20px;
+            animation: confetti-fall 8s linear infinite;
+            opacity: 0.8;
         }
         
         /* Hero Section */
         .hero {
             min-height: 100vh;
             display: flex;
-            flex-direction: column;
-            justify-content: center;
             align-items: center;
-            text-align: center;
             position: relative;
             background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
             overflow: hidden;
         }
         
-        /* Floating elements for fun effect */
-        .hero::before {
-            content: '✨';
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('assets/images/hero-bg.jpg') center/cover;
+            opacity: 0.2;
+        }
+        
+        /* Floating decorations */
+        .decoration {
             position: absolute;
             font-size: 3rem;
-            top: 20%;
-            left: 10%;
-            animation: float 3s ease-in-out infinite;
+            animation: float 4s ease-in-out infinite;
+            z-index: 2;
         }
         
-        .hero::after {
-            content: '🎈';
-            position: absolute;
-            font-size: 4rem;
-            top: 30%;
-            right: 15%;
-            animation: float 4s ease-in-out infinite 1s;
-        }
+        .decoration:nth-child(1) { top: 15%; left: 5%; animation-delay: 0s; }
+        .decoration:nth-child(2) { top: 25%; right: 8%; animation-delay: 1s; }
+        .decoration:nth-child(3) { top: 60%; left: 8%; animation-delay: 2s; }
+        .decoration:nth-child(4) { top: 70%; right: 5%; animation-delay: 0.5s; }
+        .decoration:nth-child(5) { top: 40%; left: 3%; animation-delay: 1.5s; }
         
-        @keyframes float {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-20px) rotate(5deg); }
-        }
-        
-        .hero-content {
-            position: relative;
-            z-index: 1;
-            max-width: 900px;
+        .hero-container {
+            max-width: 1400px;
+            margin: 0 auto;
             padding: 2rem;
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 4rem;
+            align-items: center;
+            position: relative;
+            z-index: 3;
         }
         
-        .event-date {
+        @media (max-width: 968px) {
+            .hero-container {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+        }
+        
+        .hero-content { color: var(--color-white); }
+        
+        .hero-logo-side {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .hero-logo-placeholder {
+            width: 250px;
+            height: 300px;
+            border: 3px dashed rgba(255,255,255,0.4);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(255,255,255,0.6);
+            font-size: 0.9rem;
+            text-align: center;
+            padding: 1rem;
+        }
+        
+        .event-badge {
             display: inline-block;
-            background: var(--color-accent-yellow);
+            background: var(--color-yellow);
             color: var(--color-primary);
-            padding: 0.5rem 1.5rem;
+            padding: 0.5rem 1.25rem;
             border-radius: 50px;
             font-weight: 700;
-            font-size: 1rem;
+            font-size: 0.9rem;
             margin-bottom: 1.5rem;
             text-transform: uppercase;
             letter-spacing: 0.05em;
@@ -101,111 +163,112 @@
         
         .hero h1 {
             font-family: var(--font-display);
-            font-size: clamp(3rem, 8vw, 6rem);
+            font-size: clamp(3rem, 7vw, 5rem);
             font-weight: 700;
-            color: var(--color-white);
-            margin-bottom: 1rem;
-            text-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            line-height: 1.1;
+            margin-bottom: 0.5rem;
         }
         
         .hero h1 span {
-            background: linear-gradient(90deg, var(--color-accent-yellow), var(--color-accent-orange), var(--color-accent-pink));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: var(--color-yellow);
         }
         
-        .hero-tagline {
-            font-size: 1.5rem;
-            color: var(--color-accent-blue);
-            font-weight: 600;
-            margin-bottom: 1rem;
-        }
-        
-        .hero p {
-            font-size: 1.1rem;
-            color: rgba(255,255,255,0.8);
-            max-width: 600px;
-            margin: 0 auto 2rem;
-        }
-        
-        .hero-stats {
-            display: flex;
-            justify-content: center;
-            gap: 3rem;
-            margin-top: 2rem;
-            flex-wrap: wrap;
-        }
-        
-        .hero-stat {
-            text-align: center;
-        }
-        
-        .hero-stat-value {
+        .hero-subtitle {
             font-family: var(--font-display);
-            font-size: 3rem;
-            font-weight: 700;
-            color: var(--color-accent-yellow);
+            font-size: 1.75rem;
+            color: var(--color-accent-light);
+            margin-bottom: 1.5rem;
+            font-weight: 500;
         }
         
-        .hero-stat-label {
-            font-size: 0.9rem;
+        /* BIG Date & Time */
+        .event-datetime {
+            background: rgba(255,255,255,0.1);
+            border: 2px solid rgba(255,255,255,0.2);
+            border-radius: 16px;
+            padding: 1.5rem 2rem;
+            margin-bottom: 2rem;
+            display: inline-block;
+        }
+        
+        .event-date-big {
+            font-family: var(--font-display);
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 700;
+            color: var(--color-yellow);
+            line-height: 1.2;
+        }
+        
+        .event-time-big {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--color-white);
+        }
+        
+        .event-location {
+            font-size: 1rem;
             color: rgba(255,255,255,0.7);
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
+            margin-top: 0.5rem;
+        }
+        
+        .hero-desc {
+            font-size: 1.15rem;
+            color: rgba(255,255,255,0.85);
+            margin-bottom: 2rem;
+            max-width: 550px;
         }
         
         .cta-buttons {
             display: flex;
             gap: 1rem;
-            justify-content: center;
             flex-wrap: wrap;
         }
         
+        @media (max-width: 968px) {
+            .cta-buttons { justify-content: center; }
+            .hero-desc { margin-left: auto; margin-right: auto; }
+            .event-datetime { margin-left: auto; margin-right: auto; }
+        }
+        
         .btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
             padding: 1rem 2rem;
             border-radius: 50px;
             font-weight: 700;
             font-size: 1rem;
             text-decoration: none;
-            transition: all 0.3s ease;
-            cursor: pointer;
+            transition: all 0.3s;
             border: none;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
         }
         
         .btn-primary {
-            background: linear-gradient(135deg, var(--color-accent-orange), var(--color-accent-pink));
-            color: var(--color-white);
-            box-shadow: 0 4px 15px rgba(255,107,53,0.4);
+            background: linear-gradient(135deg, var(--color-orange), var(--color-yellow));
+            color: var(--color-primary);
+            box-shadow: 0 4px 20px rgba(255,140,66,0.4);
         }
         
         .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(255,107,53,0.5);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(255,140,66,0.5);
         }
         
-        .btn-secondary {
-            background: rgba(255,255,255,0.1);
+        .btn-outline {
+            background: transparent;
+            border: 2px solid rgba(255,255,255,0.4);
             color: var(--color-white);
-            border: 2px solid rgba(255,255,255,0.3);
         }
         
-        .btn-secondary:hover {
-            background: rgba(255,255,255,0.2);
+        .btn-outline:hover {
+            background: rgba(255,255,255,0.1);
+            border-color: var(--color-white);
         }
         
-        /* Section Styles */
-        section {
-            padding: 5rem 2rem;
-        }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
+        /* Sections */
+        section { padding: 5rem 2rem; }
+        .container { max-width: 1200px; margin: 0 auto; }
         
         .section-header {
             text-align: center;
@@ -214,10 +277,10 @@
         
         .section-badge {
             display: inline-block;
-            background: var(--color-accent-yellow);
-            color: var(--color-primary);
-            padding: 0.25rem 1rem;
-            border-radius: 20px;
+            background: var(--color-accent);
+            color: var(--color-white);
+            padding: 0.375rem 1rem;
+            border-radius: 50px;
             font-size: 0.8rem;
             font-weight: 700;
             text-transform: uppercase;
@@ -228,6 +291,7 @@
             font-family: var(--font-display);
             font-size: 2.5rem;
             font-weight: 700;
+            color: var(--color-primary);
             margin-bottom: 0.5rem;
         }
         
@@ -236,95 +300,105 @@
             font-size: 1.1rem;
         }
         
-        /* Attractions Grid */
-        .attractions {
-            background: var(--color-gray-100);
-        }
-        
-        .attractions-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-        
-        .attraction-card {
-            background: var(--color-white);
-            border-radius: 20px;
-            padding: 2rem;
-            text-align: center;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-            transition: transform 0.3s ease;
-        }
-        
-        .attraction-card:hover {
-            transform: translateY(-5px);
-        }
-        
-        .attraction-icon {
-            width: 80px;
-            height: 80px;
-            margin: 0 auto 1rem;
-            background: linear-gradient(135deg, var(--color-accent-blue), var(--color-accent-green));
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2.5rem;
-        }
-        
-        .attraction-title {
-            font-family: var(--font-display);
-            font-size: 1.3rem;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-        }
-        
-        .attraction-desc {
-            color: var(--color-gray-600);
-            font-size: 0.95rem;
-        }
-        
-        /* Bounce House Village */
-        .bounce-village {
+        /* Punch Pass Section */
+        .punch-pass {
             background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
             color: var(--color-white);
         }
         
-        .bounce-village .section-badge {
-            background: var(--color-accent-pink);
-        }
+        .punch-pass .section-badge { background: var(--color-yellow); color: var(--color-primary); }
+        .punch-pass .section-title { color: var(--color-white); }
+        .punch-pass .section-subtitle { color: rgba(255,255,255,0.7); }
         
-        .bounce-village .section-subtitle {
-            color: rgba(255,255,255,0.7);
-        }
-        
-        .bounce-info {
+        .punch-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .punch-card {
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 20px;
+            padding: 2rem;
             text-align: center;
         }
         
-        .bounce-stat {
-            padding: 2rem;
-            background: rgba(255,255,255,0.1);
-            border-radius: 20px;
-        }
-        
-        .bounce-stat-value {
-            font-family: var(--font-display);
+        .punch-icon {
             font-size: 4rem;
-            font-weight: 700;
-            color: var(--color-accent-yellow);
+            margin-bottom: 1rem;
         }
         
-        .bounce-stat-label {
-            font-size: 1rem;
-            opacity: 0.8;
+        .punch-card h3 {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+        
+        .punch-card p {
+            color: rgba(255,255,255,0.8);
+            margin-bottom: 1rem;
+        }
+        
+        .prize-badge {
+            display: inline-block;
+            background: var(--color-yellow);
+            color: var(--color-primary);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 0.85rem;
+        }
+        
+        /* Attractions - Round Images */
+        .attractions {
+            background: var(--color-cream);
+        }
+        
+        .attractions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2.5rem;
+        }
+        
+        .attraction-card {
+            text-align: center;
+            position: relative;
+        }
+        
+        .attraction-image {
+            width: 180px;
+            height: 180px;
+            margin: 0 auto 1.5rem;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--color-accent), var(--color-primary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            box-shadow: 0 10px 30px rgba(74,159,212,0.3);
+            transition: transform 0.3s;
+        }
+        
+        .attraction-card:hover .attraction-image {
+            transform: scale(1.05) rotate(3deg);
+        }
+        
+        .attraction-card h3 {
+            font-family: var(--font-display);
+            font-size: 1.4rem;
+            color: var(--color-primary);
+            margin-bottom: 0.5rem;
+        }
+        
+        .attraction-card p {
+            color: var(--color-gray-600);
+            font-size: 0.95rem;
         }
         
         /* Touch-a-Truck */
-        .touch-a-truck {
+        .touch-truck {
             background: var(--color-white);
         }
         
@@ -337,93 +411,80 @@
         
         .truck-item {
             text-align: center;
-            padding: 1.5rem;
+            width: 120px;
         }
         
         .truck-icon {
-            font-size: 4rem;
-            margin-bottom: 0.5rem;
-        }
-        
-        .truck-name {
-            font-weight: 600;
-        }
-        
-        /* Entertainment */
-        .entertainment {
-            background: linear-gradient(135deg, var(--color-accent-pink) 0%, var(--color-accent-orange) 100%);
-            color: var(--color-white);
-        }
-        
-        .entertainment .section-badge {
-            background: var(--color-white);
-            color: var(--color-accent-pink);
-        }
-        
-        .characters-grid {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 3rem;
-            margin-bottom: 3rem;
-        }
-        
-        .character-item {
-            text-align: center;
-        }
-        
-        .character-icon {
             width: 100px;
             height: 100px;
-            background: rgba(255,255,255,0.2);
+            background: var(--color-gray-100);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 3rem;
-            margin-bottom: 0.5rem;
+            margin: 0 auto 0.75rem;
+            transition: transform 0.3s, background 0.3s;
         }
         
-        .performers-list {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 1rem;
+        .truck-item:hover .truck-icon {
+            transform: scale(1.1);
+            background: var(--color-accent-light);
         }
         
-        .performer-tag {
-            background: rgba(255,255,255,0.2);
-            padding: 0.5rem 1.5rem;
-            border-radius: 50px;
+        .truck-name {
             font-weight: 600;
+            font-size: 0.95rem;
         }
         
-        /* Vendors */
-        .vendors {
+        /* Train Rides */
+        .train-rides {
+            background: linear-gradient(135deg, var(--color-orange) 0%, var(--color-yellow) 100%);
+            color: var(--color-primary);
+            text-align: center;
+        }
+        
+        .train-rides .section-badge { background: var(--color-primary); color: var(--color-white); }
+        
+        .train-icon-big {
+            font-size: 6rem;
+            margin-bottom: 1rem;
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        /* Registration / Luma Embed */
+        .registration {
             background: var(--color-gray-100);
         }
         
-        .vendor-areas {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-        
-        .vendor-area {
+        .luma-embed-placeholder {
             background: var(--color-white);
-            padding: 2rem;
-            border-radius: 20px;
+            border: 2px dashed var(--color-gray-600);
+            border-radius: 16px;
+            padding: 4rem 2rem;
             text-align: center;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            color: var(--color-gray-600);
+            max-width: 600px;
+            margin: 0 auto;
         }
         
-        .vendor-area h3 {
-            font-family: var(--font-display);
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
+        /* Map Section */
+        .map-section {
+            background: var(--color-white);
         }
         
-        /* CTA Section */
+        .map-placeholder {
+            aspect-ratio: 16/9;
+            background: var(--color-gray-100);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--color-gray-600);
+            border: 2px dashed var(--color-gray-600);
+        }
+        
+        /* CTA */
         .cta-section {
             background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
             color: var(--color-white);
@@ -438,257 +499,261 @@
         
         .cta-section p {
             font-size: 1.2rem;
-            opacity: 0.8;
+            opacity: 0.85;
             margin-bottom: 2rem;
+        }
+        
+        .free-badge {
+            display: inline-block;
+            background: var(--color-green);
+            color: var(--color-white);
+            padding: 0.5rem 1.25rem;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
+            animation: pulse 2s ease-in-out infinite;
         }
         
         /* Footer */
         footer {
-            background: var(--color-primary);
+            background: var(--color-secondary);
             color: var(--color-white);
             padding: 3rem 2rem;
             text-align: center;
+        }
+        
+        .footer-logo-placeholder {
+            width: 150px;
+            height: 80px;
+            margin: 0 auto 1rem;
+            border: 2px dashed rgba(255,255,255,0.3);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(255,255,255,0.5);
+            font-size: 0.8rem;
         }
         
         .footer-text {
             opacity: 0.6;
             font-size: 0.9rem;
         }
-        
-        /* Placeholder */
-        .placeholder {
-            border: 2px dashed rgba(255,255,255,0.3);
-            padding: 2rem;
-            text-align: center;
-            border-radius: 12px;
-            opacity: 0.7;
-        }
-        
-        /* FREE Badge */
-        .free-badge {
-            display: inline-block;
-            background: var(--color-accent-green);
-            color: var(--color-primary);
-            padding: 0.25rem 1rem;
-            border-radius: 20px;
-            font-weight: 700;
-            font-size: 0.9rem;
-            text-transform: uppercase;
-        }
     </style>
 </head>
 <body>
-    <!-- Hero -->
-    <section class="hero">
+
+<!-- Floating Decorations -->
+<div class="decoration">🎈</div>
+<div class="decoration">✨</div>
+<div class="decoration">🎉</div>
+<div class="decoration">🎪</div>
+<div class="decoration">⭐</div>
+
+<!-- Hero -->
+<section class="hero">
+    <div class="hero-bg"></div>
+    
+    <div class="hero-container">
         <div class="hero-content">
-            <span class="event-date">📅 May 2026</span>
+            <div class="event-badge">🎪 Grand Opening</div>
             
-            <h1>Firefly <span>Family Festival</span></h1>
-            <p class="hero-tagline">Get the kids off screens and into the fun! 🎉</p>
-            <p>Join us for the biggest family event of the year. Free admission, endless activities, and memories that will last a lifetime.</p>
+            <h1>Firefly <span>Fam Fest</span></h1>
+            <p class="hero-subtitle">A Festival for Families</p>
+            
+            <div class="event-datetime">
+                <div class="event-date-big">May 9, 2026</div>
+                <div class="event-time-big">10:00 AM — 6:00 PM</div>
+                <div class="event-location">📍 Eagle Mountain, Utah</div>
+            </div>
+            
+            <p class="hero-desc">Get the kids off screens and into the fun! Bounce houses, touch-a-truck, train rides, crafts with prizes, and memories that last a lifetime.</p>
             
             <div class="cta-buttons">
-                <a href="#tickets" class="btn btn-primary">🎟️ Get Free Tickets</a>
-                <a href="#attractions" class="btn btn-secondary">Explore Activities</a>
-            </div>
-            
-            <div class="hero-stats">
-                <div class="hero-stat">
-                    <div class="hero-stat-value">16</div>
-                    <div class="hero-stat-label">Bounce Houses</div>
-                </div>
-                <div class="hero-stat">
-                    <div class="hero-stat-value">10K</div>
-                    <div class="hero-stat-label">Expected Guests</div>
-                </div>
-                <div class="hero-stat">
-                    <div class="hero-stat-value">FREE</div>
-                    <div class="hero-stat-label">Admission</div>
-                </div>
+                <a href="#register" class="btn btn-primary">🎟️ Register Free</a>
+                <a href="#attractions" class="btn btn-outline">See What's Happening</a>
             </div>
         </div>
-    </section>
-    
-    <!-- Attractions -->
-    <section class="attractions" id="attractions">
-        <div class="container">
-            <div class="section-header">
-                <span class="section-badge">What's Happening</span>
-                <h2 class="section-title">Festival Attractions</h2>
-                <p class="section-subtitle">Something for everyone in the family</p>
-            </div>
-            
-            <div class="attractions-grid">
-                <div class="attraction-card">
-                    <div class="attraction-icon">🏰</div>
-                    <h3 class="attraction-title">Bounce House Village</h3>
-                    <p class="attraction-desc">16 inflatable structures in a village-style layout. Ticketed access for unlimited bouncing!</p>
-                </div>
-                
-                <div class="attraction-card">
-                    <div class="attraction-icon">🚒</div>
-                    <h3 class="attraction-title">Touch-a-Truck</h3>
-                    <p class="attraction-desc">Get up close with fire trucks, police cars, ambulances, excavators, and dump trucks!</p>
-                </div>
-                
-                <div class="attraction-card">
-                    <div class="attraction-icon">🍔</div>
-                    <h3 class="attraction-title">Food Truck Alley</h3>
-                    <p class="attraction-desc">Delicious eats from the area's best food trucks. Something for every taste!</p>
-                </div>
-                
-                <div class="attraction-card">
-                    <div class="attraction-icon">🎭</div>
-                    <h3 class="attraction-title">Meet Characters</h3>
-                    <p class="attraction-desc">Bluey, princesses, Spider-Man, and more! Photo ops and meet & greets.</p>
-                </div>
-                
-                <div class="attraction-card">
-                    <div class="attraction-icon">🎪</div>
-                    <h3 class="attraction-title">Live Entertainment</h3>
-                    <p class="attraction-desc">Face painters, balloon artists, jugglers, and magicians roaming the grounds.</p>
-                </div>
-                
-                <div class="attraction-card">
-                    <div class="attraction-icon">🎤</div>
-                    <h3 class="attraction-title">Main Stage</h3>
-                    <p class="attraction-desc">School performances and live entertainment throughout the day.</p>
-                </div>
+        
+        <div class="hero-logo-side">
+            <div class="hero-logo-placeholder">
+                [FIREFLY FAM FEST LOGO]<br><br>
+                Large logo goes here
             </div>
         </div>
-    </section>
-    
-    <!-- Bounce House Village -->
-    <section class="bounce-village">
-        <div class="container">
-            <div class="section-header">
-                <span class="section-badge">🎈 Main Attraction</span>
-                <h2 class="section-title" style="color: #fff;">Bounce House Village</h2>
-                <p class="section-subtitle">Village-style layout with 16 inflatable structures</p>
+    </div>
+</section>
+
+<!-- Punch Pass Section -->
+<section class="punch-pass">
+    <div class="container">
+        <div class="section-header">
+            <span class="section-badge">🎫 Win Big Prizes!</span>
+            <h2 class="section-title">Adventure Punch Passes</h2>
+            <p class="section-subtitle">Complete activities, get punches, enter to win amazing prizes!</p>
+        </div>
+        
+        <div class="punch-grid">
+            <div class="punch-card">
+                <div class="punch-icon">🎨</div>
+                <h3>Craft Punch Pass</h3>
+                <p>Visit every craft station, get a punch at each one. Fill out the back and enter to win a...</p>
+                <span class="prize-badge">🏆 Family Getaway Prize!</span>
             </div>
             
-            <div class="bounce-info">
-                <div class="bounce-stat">
-                    <div class="bounce-stat-value">16</div>
-                    <div class="bounce-stat-label">Bounce Houses</div>
-                </div>
-                <div class="bounce-stat">
-                    <div class="bounce-stat-value">$</div>
-                    <div class="bounce-stat-label">Ticketed Access</div>
-                </div>
-                <div class="bounce-stat">
-                    <div class="bounce-stat-value">∞</div>
-                    <div class="bounce-stat-label">Unlimited Bouncing</div>
-                </div>
+            <div class="punch-card">
+                <div class="punch-icon">🚚</div>
+                <h3>Touch-a-Truck Pass</h3>
+                <p>Explore every vehicle, collect all your punches. Complete the pass and win...</p>
+                <span class="prize-badge">🏆 Giant Tonka Truck Set!</span>
             </div>
         </div>
-    </section>
-    
-    <!-- Touch-a-Truck -->
-    <section class="touch-a-truck">
-        <div class="container">
-            <div class="section-header">
-                <span class="section-badge">🚗 Explore</span>
-                <h2 class="section-title">Touch-a-Truck</h2>
-                <p class="section-subtitle">Get behind the wheel of real vehicles!</p>
+    </div>
+</section>
+
+<!-- Attractions -->
+<section class="attractions" id="attractions">
+    <div class="container">
+        <div class="section-header">
+            <span class="section-badge">🎪 Festival Fun</span>
+            <h2 class="section-title">What's Happening</h2>
+            <p class="section-subtitle">Something for everyone in the family</p>
+        </div>
+        
+        <div class="attractions-grid">
+            <div class="attraction-card">
+                <div class="attraction-image">🏰</div>
+                <h3>Bounce House Village</h3>
+                <p>16 inflatable structures! Unlimited bouncing all day long.</p>
             </div>
             
-            <div class="truck-grid">
-                <div class="truck-item">
-                    <div class="truck-icon">🚒</div>
-                    <div class="truck-name">Fire Truck</div>
-                </div>
-                <div class="truck-item">
-                    <div class="truck-icon">🚔</div>
-                    <div class="truck-name">Police Car</div>
-                </div>
-                <div class="truck-item">
-                    <div class="truck-icon">🚑</div>
-                    <div class="truck-name">Ambulance</div>
-                </div>
-                <div class="truck-item">
-                    <div class="truck-icon">🚜</div>
-                    <div class="truck-name">Excavator</div>
-                </div>
-                <div class="truck-item">
-                    <div class="truck-icon">🚚</div>
-                    <div class="truck-name">Dump Truck</div>
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <!-- Entertainment -->
-    <section class="entertainment">
-        <div class="container">
-            <div class="section-header">
-                <span class="section-badge">✨ Magic & Fun</span>
-                <h2 class="section-title" style="color: #fff;">Entertainment</h2>
+            <div class="attraction-card">
+                <div class="attraction-image">🚒</div>
+                <h3>Touch-a-Truck</h3>
+                <p>Fire trucks, police cars, excavators — climb in and explore!</p>
             </div>
             
-            <div class="characters-grid">
-                <div class="character-item">
-                    <div class="character-icon">🐕</div>
-                    <div>Bluey</div>
-                </div>
-                <div class="character-item">
-                    <div class="character-icon">👸</div>
-                    <div>Princesses</div>
-                </div>
-                <div class="character-item">
-                    <div class="character-icon">🕷️</div>
-                    <div>Spider-Man</div>
-                </div>
+            <div class="attraction-card">
+                <div class="attraction-image">🚂</div>
+                <h3>Train Rides</h3>
+                <p>All aboard! Ride the festival train around the grounds.</p>
             </div>
             
-            <div class="performers-list">
-                <span class="performer-tag">🎨 Face Painters</span>
-                <span class="performer-tag">🎈 Balloon Artists</span>
-                <span class="performer-tag">🤹 Jugglers</span>
-                <span class="performer-tag">🎩 Magicians</span>
-            </div>
-        </div>
-    </section>
-    
-    <!-- Vendors -->
-    <section class="vendors">
-        <div class="container">
-            <div class="section-header">
-                <span class="section-badge">🛍️ Shop & Eat</span>
-                <h2 class="section-title">Vendor Villages</h2>
+            <div class="attraction-card">
+                <div class="attraction-image">🎨</div>
+                <h3>Craft Stations</h3>
+                <p>Hands-on crafts for all ages. Take home your creations!</p>
             </div>
             
-            <div class="vendor-areas">
-                <div class="vendor-area">
-                    <h3>🍕 Food Trucks</h3>
-                    <p>The best local food trucks serving up delicious treats for the whole family.</p>
-                </div>
-                <div class="vendor-area">
-                    <h3>🛒 Vendor Village</h3>
-                    <p>Local businesses and artisans with unique finds and festival favorites.</p>
-                </div>
-                <div class="vendor-area">
-                    <h3>🧸 Kids Vendor Village</h3>
-                    <p>Special section just for the little ones with kid-friendly vendors.</p>
-                </div>
+            <div class="attraction-card">
+                <div class="attraction-image">🎭</div>
+                <h3>Character Meet & Greets</h3>
+                <p>Bluey, princesses, Spider-Man and more! Photo ops included.</p>
+            </div>
+            
+            <div class="attraction-card">
+                <div class="attraction-image">🍔</div>
+                <h3>Food Trucks</h3>
+                <p>Delicious eats from the area's best mobile kitchens.</p>
             </div>
         </div>
-    </section>
-    
-    <!-- CTA -->
-    <section class="cta-section" id="tickets">
-        <div class="container">
-            <span class="free-badge">🎉 Free Admission</span>
-            <h2>See You There!</h2>
-            <p>Get your free tickets now and don't miss the biggest family event of the year.</p>
-            <a href="#" class="btn btn-primary">🎟️ Reserve Free Tickets</a>
+    </div>
+</section>
+
+<!-- Touch-a-Truck -->
+<section class="touch-truck">
+    <div class="container">
+        <div class="section-header">
+            <span class="section-badge">🚗 Explore</span>
+            <h2 class="section-title">Touch-a-Truck</h2>
+            <p class="section-subtitle">Get behind the wheel of real vehicles!</p>
         </div>
-    </section>
-    
-    <!-- Footer -->
-    <footer>
-        <p class="footer-text">© 2026 Firefly Family Festival. A DAI Event.</p>
-        <p class="footer-text" style="margin-top: 0.5rem;">Permitting in progress</p>
-    </footer>
+        
+        <div class="truck-grid">
+            <div class="truck-item">
+                <div class="truck-icon">🚒</div>
+                <div class="truck-name">Fire Truck</div>
+            </div>
+            <div class="truck-item">
+                <div class="truck-icon">🚔</div>
+                <div class="truck-name">Police Car</div>
+            </div>
+            <div class="truck-item">
+                <div class="truck-icon">🚑</div>
+                <div class="truck-name">Ambulance</div>
+            </div>
+            <div class="truck-item">
+                <div class="truck-icon">🚜</div>
+                <div class="truck-name">Excavator</div>
+            </div>
+            <div class="truck-item">
+                <div class="truck-icon">🚚</div>
+                <div class="truck-name">Dump Truck</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Train Rides -->
+<section class="train-rides">
+    <div class="container">
+        <div class="section-header">
+            <span class="section-badge">🚂 All Aboard!</span>
+            <h2 class="section-title" style="color: var(--color-primary);">Train Rides</h2>
+        </div>
+        <div class="train-icon-big">🚂</div>
+        <p style="font-size: 1.2rem; max-width: 500px; margin: 0 auto;">Hop on the festival train and take a ride around the grounds! Fun for the whole family.</p>
+    </div>
+</section>
+
+<!-- Registration -->
+<section class="registration" id="register">
+    <div class="container">
+        <div class="section-header">
+            <span class="section-badge">🎟️ Free Entry</span>
+            <h2 class="section-title">Register Now</h2>
+            <p class="section-subtitle">Grab your free tickets and get your punch pass when you arrive!</p>
+        </div>
+        
+        <div class="luma-embed-placeholder">
+            [LUMA EVENT EMBED CODE HERE]<br><br>
+            Registration form will appear here
+        </div>
+    </div>
+</section>
+
+<!-- Map -->
+<section class="map-section">
+    <div class="container">
+        <div class="section-header">
+            <span class="section-badge">📍 Find Us</span>
+            <h2 class="section-title">Festival Map</h2>
+            <p class="section-subtitle">Visitor-friendly map coming soon</p>
+        </div>
+        
+        <div class="map-placeholder">
+            [Visitor-Friendly Festival Map]
+        </div>
+    </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+    <div class="container">
+        <span class="free-badge">🎉 FREE ADMISSION</span>
+        <h2>See You There!</h2>
+        <p>May 9, 2026 • 10 AM — 6 PM • Eagle Mountain, Utah</p>
+        <a href="#register" class="btn btn-primary">🎟️ Register Free →</a>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer>
+    <div class="footer-logo-placeholder">[Firefly Logo]</div>
+    <p class="footer-text">© 2026 Firefly Fam Fest. A Candlelight Homes / DAI Event.</p>
+    <p class="footer-text" style="margin-top: 0.5rem;">Eagle Mountain, Utah</p>
+</footer>
+
 </body>
 </html>
